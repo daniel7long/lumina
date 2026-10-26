@@ -12,7 +12,7 @@ export const CATEGORIES = [
   'Arts & Humanities',
   'Business',
   'Computer Science & Programming',
-  'Data Science',
+  'Data Science and Causal Reasoning',
   'Life Sciences',
   'Mathematics and Logic',
 ];

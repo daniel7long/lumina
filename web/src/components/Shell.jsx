@@ -2,6 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, navigate, useLocation } from '../lib/router.jsx';
 import { useAuth, useConfig } from '../lib/auth.jsx';
 import { Avatar, Icon, Logo } from './ui.jsx';
+import cmuLogo from '../../assets/cmu-logo.png';
+import { SITE } from '../lib/site.js';
+
+// CMU wordmark stacked above the Lumina logo.
+export function Brand({ light = false }) {
+  return (
+    <span className="brand">
+      <span className={`cmu ${light ? 'on-dark' : ''}`}><img src={cmuLogo} alt={SITE.institution} width="150" height="15" /></span>
+      <Logo light={light} size={30} />
+    </span>
+  );
+}
 
 export function TopBar() {
   const { user, logout } = useAuth();
@@ -19,7 +31,7 @@ export function TopBar() {
   return (
     <header className="topbar">
       <div className="container">
-        <Link to="/" aria-label="Lumina Learning home"><Logo /></Link>
+        <Link to="/" className="brandlink" aria-label="Lumina Learning at Carnegie Mellon University, home"><Brand /></Link>
         <nav className="nav" aria-label="Main">
           <Link to="/courses" className={on('/courses')}>Courses</Link>
           {user && <Link to="/my" className={on('/my')}>My learning</Link>}
@@ -56,12 +68,12 @@ export function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer-grid">
-          <div><Logo light /><p style={{ marginTop: 12, maxWidth: '34ch' }}>Self-paced courses with short sessions, quick quizzes and an assistant that explains things in simple English.</p></div>
+          <div><Brand light /><p style={{ marginTop: 12, maxWidth: '38ch' }}>The next generation of the {SITE.predecessor} platform at {SITE.institution}. Courses built on the science of learning, free to join.</p></div>
           <div><h4>Learn</h4><ul><li><Link to="/courses">All courses</Link></li><li><Link to="/my">My learning</Link></li></ul></div>
           <div><h4>Account</h4><ul><li><Link to="/login">Sign in</Link></li><li><Link to="/signup">Create account</Link></li></ul></div>
           <div><h4>Help</h4><ul><li><a href="#top">Accessibility</a></li><li><a href="#top">Contact support</a></li></ul></div>
         </div>
-        <div className="fine">© {new Date().getFullYear()} Lumina Learning. All rights reserved.</div>
+        <div className="fine">© {new Date().getFullYear()} Lumina Learning · {SITE.institution}. All rights reserved.</div>
       </div>
     </footer>
   );

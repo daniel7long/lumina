@@ -75,6 +75,11 @@ test('catalogue lists the published course; learning requires enrolment', async 
   const { c } = await newLearner();
   const cat = await c.get('/api/catalog');
   assert.equal(cat.data.courses.length, 1);
+  assert.equal(cat.data.total, 1);
+  assert.equal(cat.data.hasMore, false);
+  assert.equal(cat.data.allCount, 1);
+  const none = await c.get('/api/catalog?offset=5');
+  assert.equal(none.data.courses.length, 0);
   assert.equal((await c.get(`/api/learn/${slug()}`)).status, 403);
   assert.equal((await c.post(`/api/courses/${slug()}/enroll`)).status, 200);
   const o = await c.get(`/api/learn/${slug()}`);

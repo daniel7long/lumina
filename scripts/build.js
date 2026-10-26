@@ -20,7 +20,9 @@ export const options = (production) => ({
   metafile: true,
   logLevel: 'info',
   define: { 'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development') },
-  loader: { '.css': 'css' },
+  loader: { '.css': 'css', '.png': 'file' },
+  publicPath: '/assets',
+  assetNames: 'img/[name]-[hash]',
 });
 
 export function writeHtml(meta) {

@@ -1,33 +1,58 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, navigate, useLocation } from '../lib/router.jsx';
 import { api } from '../lib/api.js';
 import { useAuth } from '../lib/auth.jsx';
 import { Band, GoogleButton, PublicPage, TopBar } from '../components/Shell.jsx';
 import { Cover, Empty, ErrorBox, Icon, ProgressBar, Spinner, useAsync, useToast } from '../components/ui.jsx';
 import { minutesLabel } from '../lib/format.js';
+import { SITE } from '../lib/site.js';
+
+const EFFECTIVE = [
+  { icon: 'target', title: 'Clear learning objectives', text: 'Every unit starts with well-defined goals, so you always know what you are working toward.' },
+  { icon: 'feedback', title: 'Instant feedback', text: 'Auto-graded questions explain each answer the moment you choose it, so mistakes become lessons.' },
+  { icon: 'doing', title: 'Learning by doing', text: 'Short, hands-on activities turn concepts into skills you can use.' },
+  { icon: 'progress', title: 'Progress tracking', text: 'Your learning dashboard shows what you finished, your time spent and your unit ratings.' },
+];
+
+function FeatureIcon({ name }) {
+  const common = { width: 56, height: 56, viewBox: '0 0 56 56', fill: 'none', stroke: 'currentColor', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true };
+  if (name === 'target') return (<svg {...common}><circle cx="26" cy="30" r="20" /><circle cx="26" cy="30" r="13" /><circle cx="26" cy="30" r="5.5" /><path d="M26 30 46 10M40 8v8h8" /></svg>);
+  if (name === 'feedback') return (<svg {...common}><path d="m6 14 5 5 9-10M6 36l9 9M15 36l-9 9" /><path d="M28 12h22M28 20h22M28 38h22M28 46h22" /></svg>);
+  if (name === 'doing') return (<svg {...common}><path d="M8 12c8-3 14-2 20 3 6-5 12-6 20-3v32c-8-3-14-2-20 3-6-5-12-6-20-3V12ZM28 15v32" /><path d="M14 20c4-1 8 0 10 2M14 28c4-1 8 0 10 2M32 22c2-2 6-3 10-2M32 30c2-2 6-3 10-2" /></svg>);
+  return (<svg {...common}><rect x="6" y="8" width="44" height="36" rx="4" /><path d="M6 16h44M16 36v-6m6 6v-12m6 12V26m6 10v-8" /><circle cx="40" cy="38" r="9" fill="var(--sky)" /><path d="m47 45 6 6" /></svg>);
+}
 
 export function Landing() {
   const { user } = useAuth();
-  const { data } = useAsync(() => api.get('/catalog'), []);
+  const { data } = useAsync(() => api.get('/catalog?limit=3'), []);
   const courses = data?.courses || [];
   return (
     <PublicPage>
       <section className="hero">
         <div className="container">
           <div>
-            <h1>Learn English the way university actually uses it</h1>
-            <p className="lead">Short sessions, quick quizzes with instant explanations, and an assistant that answers your questions while you read. Start with housing, banking and campus life, then move on to emails, lectures and research.</p>
+            <h1>Online courses built on the science of learning</h1>
+            <p className="lead">Lumina is the next generation of the Open Learning Initiative platform at Carnegie Mellon. Choose from a growing catalogue of courses with clear objectives, short sessions, quizzes that explain every answer, and a dashboard that shows how you are doing.</p>
             <div className="row wrap">
               <Link to={user ? '/my' : '/signup'} className="btn gold lg">{user ? 'Continue learning' : 'Create a free account'}</Link>
               <Link to="/courses" className="btn ghost lg" style={{ color: '#fff', borderColor: 'rgba(255,255,255,.6)' }}>Browse courses</Link>
             </div>
             <div className="facts">
-              <div><b>3 units</b>12 lessons</div>
-              <div><b>40+</b>short sessions</div>
-              <div><b>A+ to C</b>unit ratings</div>
+              {SITE.stats.map((s) => <div key={s.label}><b>{s.value}</b>{s.label}</div>)}
             </div>
           </div>
           <div className="art"><Cover theme="blue" rounded={false} /></div>
+        </div>
+      </section>
+
+      <section className="effective" aria-labelledby="effective-h">
+        <div className="container">
+          <h2 id="effective-h">What makes Lumina courses effective?</h2>
+          <div className="effgrid">
+            {EFFECTIVE.map((f) => (
+              <div key={f.title}><FeatureIcon name={f.icon} /><h3>{f.title}</h3><p>{f.text}</p></div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -36,7 +61,7 @@ export function Landing() {
           <h2>How a lesson works</h2>
           <p className="sub">Every lesson is cut into sessions of about ten minutes, so you can learn on a bus or between classes.</p>
           <div className="how">
-            <div><Icon name="video" size={28} /><h3>Watch and read</h3><p>Short videos with transcripts and readings with key phrases you can use right away.</p></div>
+            <div><Icon name="video" size={28} /><h3>Watch and read</h3><p>Short videos with transcripts, and readings with key ideas you can use right away.</p></div>
             <div><Icon name="quiz" size={28} /><h3>Check as you go</h3><p>One or two questions after each session. You see at once why each answer is right or wrong.</p></div>
             <div><Icon name="assessment" size={28} /><h3>Show what you can do</h3><p>Each unit ends with an assessment rated A+, A, B+, B or C. A B or higher passes the unit.</p></div>
           </div>
@@ -45,6 +70,7 @@ export function Landing() {
           <h2>Courses to start with</h2>
           <p className="sub">Free to join. Pick up where you stopped on any device.</p>
           {courses.length ? <div className="tiles">{courses.slice(0, 3).map((c, i) => <CourseTile key={c.slug} c={c} i={i} />)}</div> : <Empty title="New courses are on their way">Check back soon.</Empty>}
+          {courses.length > 0 && <p style={{ marginTop: 22 }}><Link to="/courses" className="btn ghost">See all courses</Link></p>}
         </section>
       </div>
     </PublicPage>
@@ -65,33 +91,73 @@ export function CourseTile({ c, i = 0 }) {
   );
 }
 
+const CAT_THEMES = ['blue', 'teal', 'amber', 'violet', 'rose', 'slate'];
+
 export function Catalog() {
   const { search } = useLocation();
+  const toast = useToast();
   const q = search.get('q') || '';
   const category = search.get('category') || '';
-  const { data, loading, error, reload } = useAsync(() => api.get(`/catalog?${new URLSearchParams({ ...(q && { q }), ...(category && { category }) })}`), [q, category]);
-  const setParam = (k, v) => {
+  const [text, setText] = useState(q);
+  const [extra, setExtra] = useState({ key: '', list: [], hasMore: null, busy: false });
+  const qs = (o = {}) => new URLSearchParams({ ...(q && { q }), ...(category && { category }), ...o }).toString();
+  const { data, loading, error, reload } = useAsync(() => api.get(`/catalog?${qs()}`), [q, category]);
+  const setParam = (k, v, replace = true) => {
     const p = new URLSearchParams(search);
     v ? p.set(k, v) : p.delete(k);
-    navigate(`/courses${p.toString() ? `?${p}` : ''}`, { replace: true });
+    navigate(`/courses${p.toString() ? `?${p}` : ''}`, { replace });
   };
+  // Search as you type, but wait for a short pause so we do not call the server on every key.
+  useEffect(() => {
+    if (text === q) return undefined;
+    const t = setTimeout(() => setParam('q', text.trim()), 300);
+    return () => clearTimeout(t);
+  }, [text]);
+  useEffect(() => { setText(q); }, [q]);
+
+  const key = `${q}|${category}`;
+  const more = extra.key === key ? extra : { list: [], hasMore: null, busy: false };
+  const list = [...(data?.courses || []), ...more.list];
+  const hasMore = more.hasMore ?? data?.hasMore;
+  const loadMore = async () => {
+    setExtra({ ...more, key, busy: true });
+    try {
+      const r = await api.get(`/catalog?${qs({ offset: list.length })}`);
+      setExtra({ key, list: [...more.list, ...r.courses], hasMore: r.hasMore, busy: false });
+    } catch (e) { toast(e.message, 'err'); setExtra({ ...more, key, busy: false }); }
+  };
+  const cats = data?.categories || [];
   return (
     <PublicPage>
       <div className="container">
-        <div className="page-title">
-          <h1>Explore courses</h1>
-          <p className="muted" style={{ maxWidth: '60ch' }}>Self-paced courses with short sessions, instant quiz feedback and ratings for every unit.</p>
-          <form onSubmit={(e) => e.preventDefault()} style={{ maxWidth: 520, marginTop: 14 }}>
-            <input value={q} onChange={(e) => setParam('q', e.target.value)} placeholder="Search courses…" aria-label="Search courses" />
-          </form>
-          <div className="filters" role="group" aria-label="Filter by category">
-            <button className={`chip ${!category ? 'on' : ''}`} onClick={() => setParam('category', '')}>All courses</button>
-            {(data?.categories || []).map((c) => <button key={c.name} className={`chip ${category === c.name ? 'on' : ''}`} onClick={() => setParam('category', c.name)}>{c.name} ({c.count})</button>)}
+        <div className="page-title cat-head">
+          <div>
+            <h1>Explore courses</h1>
+            <p className="muted" style={{ maxWidth: '56ch' }}>Self-paced courses from Carnegie Mellon, with short sessions, instant quiz feedback and a rating for every unit. Pick a subject or search by title.</p>
           </div>
+          <form onSubmit={(e) => { e.preventDefault(); setParam('q', text.trim()); }} role="search">
+            <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Search courses…" aria-label="Search courses" />
+          </form>
         </div>
-        {loading ? <Spinner /> : error ? <ErrorBox error={error} retry={reload} /> : data.courses.length ? (
-          <div className="tiles">{data.courses.map((c, i) => <CourseTile key={c.slug} c={c} i={i} />)}</div>
-        ) : <Empty title="No courses match">Try a different word or clear the filter.</Empty>}
+        <div className="cats" role="group" aria-label="Browse by subject">
+          <button className={`cat ${!category ? 'on' : ''}`} aria-pressed={!category} onClick={() => setParam('category', '')}>
+            <span className="cat-img"><Cover theme="blue" seed={0} rounded={false} /></span>
+            <span className="cat-label">All courses ({data?.allCount ?? 0})</span>
+          </button>
+          {cats.map((c, i) => (
+            <button key={c.name} className={`cat ${category === c.name ? 'on' : ''}`} aria-pressed={category === c.name} onClick={() => setParam('category', c.name)}>
+              <span className="cat-img"><Cover theme={CAT_THEMES[(i + 1) % CAT_THEMES.length]} seed={i + 1} rounded={false} /></span>
+              <span className="cat-label">{c.name} ({c.count})</span>
+            </button>
+          ))}
+        </div>
+        {loading ? <Spinner /> : error ? <ErrorBox error={error} retry={reload} /> : list.length ? (
+          <>
+            <p className="muted small" style={{ marginTop: 26 }} aria-live="polite">Showing {list.length} of {data.total} {data.total === 1 ? 'course' : 'courses'}{category ? ` in ${category}` : ''}{q ? ` matching “${q}”` : ''}</p>
+            <div className="tiles">{list.map((c, i) => <CourseTile key={c.slug} c={c} i={i} />)}</div>
+            {hasMore && <p style={{ textAlign: 'center', marginTop: 28 }}><button className="btn ghost" onClick={loadMore} disabled={more.busy}>{more.busy ? 'Loading…' : 'Show more courses'}</button></p>}
+          </>
+        ) : <Empty title="No courses match">Try a different word or choose another subject.</Empty>}
       </div>
     </PublicPage>
   );

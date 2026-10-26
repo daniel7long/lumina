@@ -67,15 +67,24 @@ export function buildRouter({ googleKeys } = {}) {
     const params = [];
     if (query.category) { where.push('c.category = ?'); params.push(query.category); }
     if (query.q) { where.push('(LOWER(c.title) LIKE ? OR LOWER(c.description) LIKE ?)'); params.push(`%${query.q.toLowerCase()}%`, `%${query.q.toLowerCase()}%`); }
+    // Paged so the catalogue stays fast with hundreds of courses.
+    const pageSize = Math.min(48, Math.max(1, parseInt(query.limit, 10) || 24));
+    const offset = Math.max(0, parseInt(query.offset, 10) || 0);
     const rows = await db.all(
       `SELECT c.*, (SELECT COUNT(*) FROM units u WHERE u.course_id = c.id) AS units,
               (SELECT COUNT(*) FROM enrollments e WHERE e.course_id = c.id) AS learners
-         FROM courses c WHERE ${where.join(' AND ')} ORDER BY c.published_at DESC LIMIT 100`,
-      params,
+         FROM courses c WHERE ${where.join(' AND ')} ORDER BY c.published_at DESC, c.id LIMIT ? OFFSET ?`,
+      [...params, pageSize, offset],
     );
+    const total = (await db.get(`SELECT COUNT(*) AS n FROM courses c WHERE ${where.join(' AND ')}`, params)).n;
     const mine = user ? new Map((await db.all('SELECT * FROM enrollments WHERE user_id = ?', [user.id])).map((e) => [e.course_id, e])) : new Map();
-    const cats = await db.all("SELECT category, COUNT(*) AS n FROM courses WHERE status = 'published' GROUP BY category");
-    return { courses: rows.map((c) => cardOf(c, mine.get(c.id))), categories: cats.map((c) => ({ name: c.category, count: c.n })) };
+    const cats = await db.all("SELECT category, COUNT(*) AS n FROM courses WHERE status = 'published' GROUP BY category ORDER BY category");
+    return {
+      courses: rows.map((c) => cardOf(c, mine.get(c.id))),
+      total, offset, hasMore: offset + rows.length < total,
+      categories: cats.map((c) => ({ name: c.category, count: c.n })),
+      allCount: cats.reduce((n, c) => n + c.n, 0),
+    };
   });
 
   r.get('/api/catalog/:slug', async ({ db, user, params }) => {

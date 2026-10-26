@@ -209,3 +209,31 @@ details.check { margin: 10px 0; border: 1px dashed #b5c5d9; border-radius: 12px;
 .mdtools { display: flex; flex-wrap: wrap; gap: 6px; } .mdtools .btn { min-height: 32px; padding: 0 12px; }
 .mdhelp { background: var(--sky-2); border-radius: 12px; padding: 12px 14px; font-size: .9rem; overflow-x: auto; margin: 0; white-space: pre; }
 .mdpreview { border: 1.5px solid var(--line); border-radius: 14px; padding: 18px 22px; min-height: 200px; background: #fff; }
+
+/* ───────── brand lockup: CMU wordmark above Lumina ───────── */
+.brandlink { text-decoration: none; display: inline-flex; }
+.brand { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.brand .cmu img { display: block; height: 17px; width: auto; }
+.brand .cmu.on-dark { background: #fff; border-radius: 6px; padding: 6px 10px; }
+.brand .logo { gap: 8px; }
+.topbar .brand .logo-text { font-size: 1.12rem; }
+@media (max-width: 560px) { .brand .cmu img { height: 12px; } }
+@media (max-width: 480px) { .topbar .nav { display: none; } .topbar .container { justify-content: space-between; } }
+
+/* ───────── what makes courses effective ───────── */
+.effective { background: var(--sky); padding: 56px 0 64px; }
+.effective h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); margin-bottom: 36px; }
+.effgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 44px 72px; }
+.effgrid svg { color: var(--ink); display: block; margin-bottom: 14px; }
+.effgrid h3 { font-size: 1.35rem; margin-bottom: 6px; } .effgrid p { margin: 0; color: var(--ink-2); max-width: 46ch; }
+@media (max-width: 760px) { .effgrid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* ───────── explore courses: subject tiles ───────── */
+.cat-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px 48px; align-items: end; }
+.cat-head form input { width: 100%; }
+@media (max-width: 760px) { .cat-head { grid-template-columns: 1fr; } }
+.cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 24px; }
+.cat { display: grid; grid-template-rows: auto 1fr; padding: 0; border: 1px solid var(--line); border-radius: 6px 18px 18px 18px; overflow: hidden; background: #fff; cursor: pointer; text-align: left; font: inherit; color: var(--ink); transition: box-shadow .2s, border-color .2s; }
+.cat:hover { box-shadow: var(--shadow); } .cat.on { border-color: var(--blue); box-shadow: 0 0 0 2px var(--blue); }
+.cat-img { display: block; aspect-ratio: 3/2; } .cat-img .cover { width: 100%; height: 100%; }
+.cat-label { padding: 14px 16px; font-weight: 700; letter-spacing: .04em; font-size: .95rem; }
