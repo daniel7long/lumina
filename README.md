@@ -1,8 +1,10 @@
 # Lumina Learning
 
+**[Live demo](https://lumina-learning-qz52.onrender.com)** · [Course library](docs/COURSES.md) · [Architecture](docs/ARCHITECTURE.md)
+
 The next generation of the Open Learning Initiative (OLI) platform at Carnegie Mellon University. Lumina is a self-paced online course platform: a learner app, an admin console and an API, built on the science of learning. It is designed for a catalogue of 100+ courses and a user base of 350,000+ learners.
 
-The first course loaded is **English for Life at a U.S. University** (3 units, 12 lessons, about 40 short sessions).
+Nine courses are included today, from English and Python to Psychology and Engineering Statics.
 
 ## What learners get
 
