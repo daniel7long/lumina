@@ -1,6 +1,7 @@
 // Small, safe Markdown renderer for lesson text. It builds React elements (never raw HTML),
 // so authored content cannot inject scripts. Supports: ## / ### headings, paragraphs,
-// bullet and numbered lists, > quotes, | tables |, --- rules, **bold**, *italic*, `code`.
+// bullet and numbered lists, > quotes, | tables |, --- rules, **bold**, *italic*, `code`,
+// and ``` fenced code blocks.
 import { Fragment } from 'react';
 
 function inline(text, key = 'i') {
@@ -28,6 +29,14 @@ export function Markdown({ text = '', className = '' }) {
   while (i < lines.length) {
     const line = lines[i];
     if (!line.trim()) { i++; continue; }
+    if (/^```/.test(line.trim())) {
+      const code = [];
+      i++;
+      while (i < lines.length && !/^```/.test(lines[i].trim())) code.push(lines[i++]);
+      i++;
+      blocks.push(<pre className="codeblock" key={i}><code>{code.join('\n')}</code></pre>);
+      continue;
+    }
     if (/^---+$/.test(line.trim())) { blocks.push(<hr key={i} />); i++; continue; }
     let m;
     if ((m = /^(#{1,4})\s+(.*)$/.exec(line))) {
@@ -81,7 +90,7 @@ export function Markdown({ text = '', className = '' }) {
     }
     // paragraph (consecutive plain lines)
     const p = [];
-    while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|>|\||---+$|\s*[-*•☐✔✘]\s|\s*\d+\.\s)/.test(lines[i])) p.push(lines[i++]);
+    while (i < lines.length && lines[i].trim() && !/^(```|#{1,4}\s|>|\||---+$|\s*[-*•☐✔✘]\s|\s*\d+\.\s)/.test(lines[i])) p.push(lines[i++]);
     if (!p.length) { p.push(lines[i++]); }
     blocks.push(<p key={i}>{p.map((l, j) => <Fragment key={j}>{j > 0 && <br />}{inline(l)}</Fragment>)}</p>);
   }

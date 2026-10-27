@@ -11,7 +11,7 @@ export async function startTestServer(overrides = {}) {
   const { server, db } = await createServer(config, overrides);
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   const base = `http://127.0.0.1:${server.address().port}`;
-  const info = await seed(db, config, { quiet: true });
+  const info = await seed(db, config, { quiet: true, only: ['english'] });
   return { base, db, config, info, close: () => new Promise((r) => server.close(() => db.close().then(r))) };
 }
 

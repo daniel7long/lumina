@@ -1,13 +1,14 @@
 import { pathToFileURL } from 'node:url';
-// Creates the first administrator and loads the English course (Units 1–3). Safe to run repeatedly.
+// Creates the first administrator and loads the course library (see server/content/index.js). Safe to run repeatedly.
 import { config } from '../config.js';
 import { openDb, migrate } from '../db/index.js';
 import { hashPassword } from '../lib/crypto.js';
 import { uid, nowIso, dayOf } from '../lib/util.js';
 import { createCourse, sanitizeTree, publishProblems } from '../services/courseTree.js';
-import { englishCourse, ENGLISH_COURSE_SLUG } from '../content/english/index.js';
+import { library } from '../content/index.js';
 
-export async function seed(db, cfg = config, { quiet = false } = {}) {
+/** `only`: optional list of library keys to load (tests load just the English course). */
+export async function seed(db, cfg = config, { quiet = false, only = null } = {}) {
   const log = quiet ? () => {} : console.log;
   const admin = await db.get('SELECT id FROM users WHERE email = ?', [cfg.adminEmail]);
   let adminId = admin?.id;
@@ -21,16 +22,21 @@ export async function seed(db, cfg = config, { quiet = false } = {}) {
     log(`Created admin ${cfg.adminEmail}`);
   }
 
-  let course = await db.get('SELECT id, slug FROM courses WHERE title = ?', [englishCourse.meta.title]);
-  if (!course) {
-    const tree = sanitizeTree(englishCourse);
-    const problems = publishProblems(tree);
-    if (problems.length) throw new Error(`Seed content has problems:\n- ${problems.join('\n- ')}`);
-    course = await createCourse(db, { title: englishCourse.meta.title, userId: adminId, tree: englishCourse });
-    await db.run("UPDATE courses SET status = 'published', published_at = ? WHERE id = ?", [nowIso(), course.id]);
-    log(`Loaded course "${englishCourse.meta.title}" (${course.slug})`);
+  let first = null;
+  for (const { key, course: content } of library) {
+    if (only && !only.includes(key)) continue;
+    let course = await db.get('SELECT id, slug FROM courses WHERE title = ?', [content.meta.title]);
+    if (!course) {
+      const tree = sanitizeTree(content);
+      const problems = publishProblems(tree);
+      if (problems.length) throw new Error(`Seed content for "${content.meta.title}" has problems:\n- ${problems.join('\n- ')}`);
+      course = await createCourse(db, { title: content.meta.title, userId: adminId, tree: content });
+      await db.run("UPDATE courses SET status = 'published', published_at = ? WHERE id = ?", [nowIso(), course.id]);
+      log(`Loaded course "${content.meta.title}" (${course.slug})`);
+    }
+    first = first || course;
   }
-  return { adminId, courseId: course.id, slug: course.slug };
+  return { adminId, courseId: first.id, slug: first.slug };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

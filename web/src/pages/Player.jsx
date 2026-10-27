@@ -5,7 +5,7 @@ import { useAuth } from '../lib/auth.jsx';
 import { useRequireAuth } from '../components/Shell.jsx';
 import { Icon, Logo, ErrorBox, ProgressBar, RatingBadge, Spinner, useAsync, useToast } from '../components/ui.jsx';
 import { Markdown } from '../lib/md.jsx';
-import { kindLabel, minutesLabel, plainTitle, timeAgo } from '../lib/format.js';
+import { kindLabel, lessonLabel, minutesLabel, plainTitle, timeAgo } from '../lib/format.js';
 
 /* ───────── time tracking: counts seconds only while the tab is visible and focused ───────── */
 function useHeartbeat(slug, itemId, q, enabled) {
@@ -63,7 +63,7 @@ function Outline({ outline, slug, current, q, onClose }) {
                 {row(u.overview)}
                 {u.lessons.map((l, li) => (
                   <div key={l.id}>
-                    <div className="lesson-h">Lesson {li + 1}: {plainTitle(l.title)}</div>
+                    <div className="lesson-h">{lessonLabel(l.title, li)}</div>
                     {l.sessions.map((s, si) => (
                       <div key={s.id}><div className="session-h">Session {si + 1}: {s.title}</div>{s.items.map(row)}</div>
                     ))}
@@ -89,7 +89,7 @@ function Overview({ body }) {
       <h2 style={{ fontSize: '1.4rem', margin: '28px 0 0' }}>What is in this unit</h2>
       <div className="lesson-list">
         {body.lessons.map((l, i) => (
-          <div key={i}><h4>Lesson {i + 1}: {l.title}</h4>{l.outcomes.length > 0 && <ul style={{ margin: 0, paddingLeft: '1.2rem' }}>{l.outcomes.map((o, j) => <li key={j}>{o}</li>)}</ul>}</div>
+          <div key={i}><h4>{lessonLabel(l.title, i)}</h4>{l.outcomes.length > 0 && <ul style={{ margin: 0, paddingLeft: '1.2rem' }}>{l.outcomes.map((o, j) => <li key={j}>{o}</li>)}</ul>}</div>
         ))}
       </div>
     </div>

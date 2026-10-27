@@ -109,7 +109,7 @@ Vercel is not a fit as-is: it is serverless with no persistent disk, and Lumina 
 
 ```
 server/             API (Node built-ins only)
-  content/english/  English course content (Units 1–3)
+  content/          course library: data/ (objectives), one folder per course, builder, index.js
   routes/           HTTP routes
   services/         grading, learning, analytics, course editing, AI
   db/               database adapter and migrations
@@ -123,15 +123,25 @@ web/
 scripts/build.js    esbuild bundler → dist/ (hashed filenames)
 tests/              API tests
 docs/ARCHITECTURE.md
+docs/COURSES.md      course list, added objectives, review caveats
 ```
 
 ## Course model
 
 Course → Unit → Lesson → Session → Item (video, reading or quiz), plus one overview item and one assessment per unit. Each lesson is divided into sessions by content length.
 
+## Course library
+
+Nine courses are included (English, Python, Java, Evidence-Based Management, Probability and Statistics, Modern Biology, Cyber Technology, Engineering Statics, Introduction to Psychology). `npm run seed` loads any course that is not yet in the database, so it is safe to run again after an update.
+
+- `npm run check:content` validates every course (structure, limits, quiz answers).
+- To add a course: create `server/content/<name>/`, add its objectives in `server/content/data/<name>.js`, and register it in `server/content/index.js`.
+- Categories: Language and Speech, Arts & Humanities, Business, Computer Science & Programming, Data Science and Causal Reasoning, Life Sciences, Mathematics and Logic, Engineering and Technology, Social Sciences.
+- Details, and which objectives were added to complete the outlines: `docs/COURSES.md`.
+
 ## Known limits
 
-- Course content derived from the source materials needs review by the course team.
+- Course content is authored draft material and needs review by subject experts before real learners use it.
 - Videos are transcripts and optional links only. No video files are produced.
 - PostgreSQL support is written but untested.
 - The catalogue search uses simple text matching, which is fine for hundreds of courses. Add a search index if it grows far beyond that.

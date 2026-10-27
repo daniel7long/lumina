@@ -29,7 +29,7 @@ export async function seedDemo(db, { learners = 160, days = 90, quiet = false } 
   const log = quiet ? () => {} : console.log;
   const R = rng(20261025);
   const pick = (a) => a[Math.floor(R() * a.length)];
-  const info = await seed(db, config, { quiet: true });
+  const info = await seed(db, config, { quiet: true, only: ['english'] });
   const items = (await db.all('SELECT id, kind, unit_id, body, est_minutes FROM items WHERE course_id = ? ORDER BY seq', [info.courseId])).map((i) => ({ ...i, body: safeJson(i.body, {}) }));
   const total = items.length;
   const fullAssess = Object.fromEntries(englishCourse.units.map((u) => [u.assessment.id, u.assessment.body]));

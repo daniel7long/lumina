@@ -15,3 +15,8 @@ export const num = (n) => Number(n).toLocaleString();
 
 /** Content titles may already start with "Unit 1 ·" or "Lesson 2 ·"; the outline adds its own numbering. */
 export const plainTitle = (t = '') => t.replace(/^(Unit|Lesson)\s+\d+\s*[·:.\-–]\s*/i, '');
+
+/** Lesson heading in outlines. Courses that already number their lessons ("Module 4: …", "Chapter 3: …") keep their own numbering. */
+export const lessonLabel = (title = '', index = 0) => (/^(Module|Chapter|Topic|Lesson)\s+\d+\s*[:·.\-–]/i.test(title)
+  ? title
+  : `Lesson ${index + 1}: ${plainTitle(title)}`);

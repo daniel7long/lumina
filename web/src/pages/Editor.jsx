@@ -4,10 +4,10 @@ import { api } from '../lib/api.js';
 import { Markdown } from '../lib/md.jsx';
 import { AdminLayout } from './Admin.jsx';
 import { ErrorBox, Icon, Spinner, useAsync, useToast } from '../components/ui.jsx';
-import { plainTitle } from '../lib/format.js';
+import { lessonLabel, plainTitle } from '../lib/format.js';
 import { hasStructure, htmlToMarkdown } from '../lib/htmlToMd.js';
 
-const CATEGORIES = ['Language and Speech', 'Arts & Humanities', 'Business', 'Computer Science & Programming', 'Data Science and Causal Reasoning', 'Life Sciences', 'Mathematics and Logic'];
+const CATEGORIES = ['Language and Speech', 'Arts & Humanities', 'Business', 'Computer Science & Programming', 'Data Science and Causal Reasoning', 'Life Sciences', 'Mathematics and Logic', 'Engineering and Technology', 'Social Sciences'];
 const THEMES = ['blue', 'teal', 'amber', 'violet', 'rose', 'slate'];
 const rid = (p) => `${p}_${Math.random().toString(36).slice(2, 8)}${Date.now().toString(36).slice(-4)}`;
 const lines = (a) => (a || []).join('\n');
@@ -417,7 +417,7 @@ export function CourseEditor({ params }) {
                   {node(u.id, 1, 'book', `Unit ${ui + 1}: ${plainTitle(u.title)}`, addBtn('Add lesson', () => add(u.id, 'lesson')))}
                   {u.lessons.map((l, li) => (
                     <div key={l.id}>
-                      {node(l.id, 2, null, `Lesson ${li + 1}: ${plainTitle(l.title)}`, addBtn('Add session', () => add(l.id, 'session')))}
+                      {node(l.id, 2, null, lessonLabel(l.title, li), addBtn('Add session', () => add(l.id, 'session')))}
                       {l.sessions.map((s, si) => (
                         <div key={s.id}>
                           {node(s.id, 3, null, `Session ${si + 1}: ${s.title}`, <>{addBtn('Add video', () => add(s.id, 'video'))}{addBtn('Add reading', () => add(s.id, 'reading'))}{addBtn('Add quiz', () => add(s.id, 'quiz'))}</>)}

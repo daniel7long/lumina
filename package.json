@@ -14,6 +14,8 @@
     "migrate": "node server/scripts/migrate.js",
     "seed": "node server/scripts/seed.js",
     "seed:demo": "node server/scripts/seed-demo.js",
+    "check:content": "node server/scripts/check-content.js",
+    "set-password": "node server/scripts/set-password.js",
     "test": "node --test --no-warnings tests/*.test.js"
   },
   "dependencies": {

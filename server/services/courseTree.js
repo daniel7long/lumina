@@ -15,6 +15,8 @@ export const CATEGORIES = [
   'Data Science and Causal Reasoning',
   'Life Sciences',
   'Mathematics and Logic',
+  'Engineering and Technology',
+  'Social Sciences',
 ];
 export const COVER_THEMES = ['blue', 'teal', 'amber', 'violet', 'rose', 'slate'];
 
@@ -82,7 +84,7 @@ export function sanitizeTree(input) {
       id: id(l.id, 'A lesson'),
       title: text(l.title) || 'Untitled lesson',
       summary: text(l.summary, 600),
-      outcomes: list(l.outcomes, 10),
+      outcomes: list(l.outcomes, 16),
       sessions: arr(l.sessions, LIMITS.sessions, 'sessions').map((s) => ({
         id: id(s.id, 'A session'),
         title: text(s.title) || 'Untitled session',
