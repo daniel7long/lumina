@@ -7,7 +7,7 @@ import { ErrorBox, Icon, Spinner, useAsync, useToast } from '../components/ui.js
 import { lessonLabel, plainTitle } from '../lib/format.js';
 import { hasStructure, htmlToMarkdown } from '../lib/htmlToMd.js';
 
-const CATEGORIES = ['Language and Speech', 'Arts & Humanities', 'Business', 'Computer Science & Programming', 'Data Science and Causal Reasoning', 'Life Sciences', 'Mathematics and Logic', 'Engineering and Technology', 'Social Sciences'];
+const CATEGORIES = ['Language and Speech', 'Arts & Humanities', 'Business', 'Computer Science & Programming', 'Data Science and Causal Reasoning', 'Life Sciences', 'Mathematics and Logic', 'Engineering and Technology', 'Social Sciences', 'Physical Sciences'];
 const THEMES = ['blue', 'teal', 'amber', 'violet', 'rose', 'slate'];
 const rid = (p) => `${p}_${Math.random().toString(36).slice(2, 8)}${Date.now().toString(36).slice(-4)}`;
 const lines = (a) => (a || []).join('\n');

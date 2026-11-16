@@ -8,6 +8,7 @@ import { biologyCourse } from './biology/index.js';
 import { cyberCourse } from './cyber/index.js';
 import { staticsCourse } from './statics/index.js';
 import { psychologyCourse } from './psychology/index.js';
+import { astronomyCourse } from './astronomy/index.js';
 
 export const library = [
   { key: 'english', course: englishCourse },
@@ -19,4 +20,5 @@ export const library = [
   { key: 'cyber', course: cyberCourse },
   { key: 'statics', course: staticsCourse },
   { key: 'psychology', course: psychologyCourse },
+  { key: 'astronomy', course: astronomyCourse },
 ];

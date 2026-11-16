@@ -4,7 +4,7 @@
 
 The next generation of the Open Learning Initiative (OLI) platform at Carnegie Mellon University. Lumina is a self-paced online course platform: a learner app, an admin console and an API, built on the science of learning. It is designed for a catalogue of 100+ courses and a user base of 350,000+ learners.
 
-Nine courses are included today, from English and Python to Psychology and Engineering Statics.
+Ten courses are included today, from English and Python to Psychology, Astronomy and Engineering Statics.
 
 ## What learners get
 
@@ -134,11 +134,11 @@ Course → Unit → Lesson → Session → Item (video, reading or quiz), plus o
 
 ## Course library
 
-Nine courses are included (English, Python, Java, Evidence-Based Management, Probability and Statistics, Modern Biology, Cyber Technology, Engineering Statics, Introduction to Psychology). `npm run seed` loads any course that is not yet in the database, so it is safe to run again after an update.
+Ten courses are included (English, Python, Java, Evidence-Based Management, Probability and Statistics, Modern Biology, Cyber Technology, Engineering Statics, Introduction to Psychology, Astronomy 101). `npm run seed` loads any course that is not yet in the database, so it is safe to run again after an update.
 
 - `npm run check:content` validates every course (structure, limits, quiz answers).
 - To add a course: create `server/content/<name>/`, add its objectives in `server/content/data/<name>.js`, and register it in `server/content/index.js`.
-- Categories: Language and Speech, Arts & Humanities, Business, Computer Science & Programming, Data Science and Causal Reasoning, Life Sciences, Mathematics and Logic, Engineering and Technology, Social Sciences.
+- Categories: Language and Speech, Arts & Humanities, Business, Computer Science & Programming, Data Science and Causal Reasoning, Life Sciences, Mathematics and Logic, Engineering and Technology, Social Sciences, Physical Sciences.
 - Details, and which objectives were added to complete the outlines: `docs/COURSES.md`.
 
 ## Known limits
