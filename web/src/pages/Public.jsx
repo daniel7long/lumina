@@ -3,7 +3,7 @@ import { Link, navigate, useLocation } from '../lib/router.jsx';
 import { api } from '../lib/api.js';
 import { useAuth } from '../lib/auth.jsx';
 import { Band, GoogleButton, PublicPage, TopBar } from '../components/Shell.jsx';
-import { Cover, Empty, ErrorBox, Icon, ProgressBar, Spinner, useAsync, useToast } from '../components/ui.jsx';
+import { Cover, motifFor, categoryMotif, Empty, ErrorBox, Icon, ProgressBar, Spinner, useAsync, useToast } from '../components/ui.jsx';
 import { minutesLabel } from '../lib/format.js';
 import { SITE } from '../lib/site.js';
 
@@ -80,7 +80,7 @@ export function Landing() {
 export function CourseTile({ c, i = 0 }) {
   return (
     <Link to={`/courses/${c.slug}`} className="tile">
-      <div className="cover-box"><Cover theme={c.coverTheme} seed={i} rounded={false} /></div>
+      <div className="cover-box"><Cover theme={c.coverTheme} motif={motifFor(c)} seed={i} rounded={false} /></div>
       <div className="body">
         <span className="meta">{c.category}</span>
         <h3>{c.title}</h3>
@@ -146,7 +146,7 @@ export function Catalog() {
           </button>
           {cats.map((c, i) => (
             <button key={c.name} className={`cat ${category === c.name ? 'on' : ''}`} aria-pressed={category === c.name} onClick={() => setParam('category', c.name)}>
-              <span className="cat-img"><Cover theme={CAT_THEMES[(i + 1) % CAT_THEMES.length]} seed={i + 1} rounded={false} /></span>
+              <span className="cat-img"><Cover theme={CAT_THEMES[(i + 1) % CAT_THEMES.length]} motif={categoryMotif(c.name)} seed={i + 1} rounded={false} /></span>
               <span className="cat-label">{c.name} ({c.count})</span>
             </button>
           ))}
@@ -196,7 +196,7 @@ export function CourseDetail({ params }) {
               {enrollment && <span className="pill gold">{enrollment.percent}% complete</span>}
             </div>
           </div>
-          <div className="art"><Cover theme={course.coverTheme} rounded={false} /></div>
+          <div className="art"><Cover theme={course.coverTheme} motif={motifFor(course)} rounded={false} /></div>
         </div>
       </section>
       <div className="container detail-grid">
