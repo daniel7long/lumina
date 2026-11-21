@@ -3,14 +3,14 @@ import { Link } from '../lib/router.jsx';
 import { api } from '../lib/api.js';
 import { Calendar } from '../components/Calendar.jsx';
 import { TopBar, Footer, useRequireAuth } from '../components/Shell.jsx';
-import { Avatar, Cover, Empty, ErrorBox, Icon, ProgressBar, RatingBadge, Spinner, useAsync, useToast } from '../components/ui.jsx';
+import { Avatar, Cover, motifFor, Empty, ErrorBox, Icon, ProgressBar, RatingBadge, Spinner, useAsync, useToast } from '../components/ui.jsx';
 import { dateLabel, kindLabel, minutesLabel, timeAgo } from '../lib/format.js';
 
 function CourseRow({ c, i }) {
   const done = c.status === 'completed';
   return (
     <article className="mycourse">
-      <Link to={`/courses/${c.slug}`} className="thumb" aria-hidden="true" tabIndex={-1}><Cover theme={c.coverTheme} seed={i} rounded={false} /></Link>
+      <Link to={`/courses/${c.slug}`} className="thumb" aria-hidden="true" tabIndex={-1}><Cover theme={c.coverTheme} motif={motifFor(c)} seed={i} rounded={false} /></Link>
       <div>
         <span className="small muted">{c.category}</span>
         <h3><Link to={`/courses/${c.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>{c.title}</Link></h3>

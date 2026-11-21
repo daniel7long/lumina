@@ -70,9 +70,113 @@ const THEMES = {
   rose: ['#8f2f55', '#d0547e', '#f2b3c8', '#ffe9f0', '#f2b63d'],
   slate: ['#27374d', '#4a627f', '#a9b8cb', '#e9eef4', '#f2b63d'],
 };
-export function Cover({ theme = 'blue', seed = 0, className = '', rounded = true }) {
+/* ───────── course covers: one simple illustration per subject ───────── */
+const CATEGORY_MOTIF = {
+  'Language and Speech': 'speech', 'Arts & Humanities': 'speech', Business: 'chart',
+  'Computer Science & Programming': 'code', 'Data Science and Causal Reasoning': 'bell', 'Life Sciences': 'dna',
+  'Mathematics and Logic': 'calc', 'Engineering and Technology': 'truss', 'Social Sciences': 'neurons',
+};
+const SLUG_MOTIF = [
+  [/calculus/, 'calc'], [/economic/, 'sd'], [/statistics|probability/, 'bell'], [/java/, 'cup'], [/python/, 'code'],
+  [/cyber|security/, 'shield'], [/management|business/, 'chart'], [/biolog/, 'dna'], [/static|engineering/, 'truss'],
+  [/psycholog/, 'neurons'], [/astronom|space|physics/, 'planet'], [/english|language/, 'speech'],
+];
+/** Picks the illustration for a course from its slug, falling back to its category. */
+export function motifFor(course) {
+  const key = `${course?.slug || ''} ${course?.title || ''}`.toLowerCase();
+  const hit = SLUG_MOTIF.find(([re]) => re.test(key));
+  return hit ? hit[1] : CATEGORY_MOTIF[course?.category] || 'speech';
+}
+export const categoryMotif = (name) => CATEGORY_MOTIF[name] || 'speech';
+
+const MOTIFS = {
+  speech: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M70 52h150a26 26 0 0 1 26 26v52a26 26 0 0 1-26 26h-92l-38 30v-30h-20a26 26 0 0 1-26-26V78a26 26 0 0 1 26-26Z" fill={pale} />
+    <circle cx="106" cy="104" r="7" fill={mid} /><circle cx="140" cy="104" r="7" fill={mid} /><circle cx="174" cy="104" r="7" fill={mid} />
+    <path d="M230 120h96a22 22 0 0 1 22 22v36a22 22 0 0 1-22 22h-10v24l-30-24h-56a22 22 0 0 1-22-22v-36a22 22 0 0 1 22-22Z" fill={light} />
+    <path d="M256 150h66M256 168h44" stroke={dark} strokeWidth="8" strokeLinecap="round" opacity=".55" />
+    <circle cx="318" cy="68" r="15" fill={accent} />
+  </>),
+  code: ({ dark, mid, light, pale, accent }) => (<>
+    <rect x="70" y="42" width="260" height="158" rx="16" fill={pale} />
+    <circle cx="92" cy="62" r="6" fill={mid} /><circle cx="110" cy="62" r="6" fill={mid} /><circle cx="128" cy="62" r="6" fill={mid} />
+    <path d="M96 100l16 11-16 11" stroke={dark} strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <rect x="124" y="106" width="110" height="9" rx="4.5" fill={mid} opacity=".6" />
+    <rect x="96" y="136" width="150" height="9" rx="4.5" fill={mid} opacity=".45" />
+    <rect x="116" y="162" width="84" height="9" rx="4.5" fill={mid} opacity=".45" />
+    <rect x="212" y="158" width="14" height="18" rx="3" fill={accent} />
+  </>),
+  cup: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M122 100h130v52a52 52 0 0 1-52 52h-26a52 52 0 0 1-52-52Z" fill={pale} />
+    <path d="M122 124h130v14H122z" fill={accent} />
+    <path d="M252 116h14a26 26 0 0 1 0 52h-22" stroke={pale} strokeWidth="13" fill="none" strokeLinecap="round" />
+    <rect x="100" y="206" width="174" height="11" rx="5.5" fill={light} />
+    <path d="M160 82c-10-13 10-21 0-34M190 82c-10-13 10-21 0-34M220 82c-10-13 10-21 0-34" stroke={light} strokeWidth="8" fill="none" strokeLinecap="round" />
+  </>),
+  shield: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M200 38l92 30v52c0 50-38 78-92 92-54-14-92-42-92-92V68Z" fill={pale} />
+    <circle cx="200" cy="112" r="17" fill={mid} />
+    <path d="M191 124h18l6 38h-30Z" fill={mid} />
+    <path d="M108 100H66M108 142H78M292 100h42M292 142h30" stroke={light} strokeWidth="6" strokeLinecap="round" />
+    <circle cx="66" cy="100" r="8" fill={accent} /><circle cx="78" cy="142" r="8" fill={accent} /><circle cx="334" cy="100" r="8" fill={accent} /><circle cx="322" cy="142" r="8" fill={accent} />
+  </>),
+  chart: ({ dark, mid, light, pale, accent }) => (<>
+    <rect x="70" y="198" width="270" height="7" rx="3.5" fill={light} />
+    {[[92, 52], [144, 82], [196, 112], [248, 142]].map(([x, h]) => <rect key={x} x={x} y={198 - h} width="40" height={h} rx="5" fill={pale} />)}
+    <path d="M112 118l52-26 52-30 52-26" stroke={accent} strokeWidth="8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M286 28l20 6-13 16Z" fill={accent} />
+  </>),
+  sd: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M92 40v158h244" stroke={pale} strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M116 66l196 116" stroke={pale} strokeWidth="10" strokeLinecap="round" />
+    <path d="M116 182l196-116" stroke={light} strokeWidth="10" strokeLinecap="round" />
+    <path d="M214 124V198M92 124h122" stroke={pale} strokeWidth="3" strokeDasharray="6 7" opacity=".8" />
+    <circle cx="214" cy="124" r="15" fill={accent} />
+  </>),
+  calc: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M100 190Q200 20 320 120V190Z" fill={light} opacity=".4" />
+    <path d="M80 40v156h260" stroke={pale} strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M100 190Q200 20 320 120" stroke={pale} strokeWidth="9" fill="none" strokeLinecap="round" />
+    <path d="M124 112L290 60" stroke={accent} strokeWidth="6" strokeLinecap="round" />
+    <circle cx="205" cy="87.5" r="10" fill={accent} />
+  </>),
+  bell: ({ dark, mid, light, pale, accent }) => (<>
+    <rect x="76" y="198" width="248" height="6" rx="3" fill={light} />
+    {[28, 62, 100, 124, 100, 62, 28].map((h, i) => <rect key={i} x={90 + i * 32} y={198 - h} width="28" height={h} rx="4" fill={pale} />)}
+    <path d="M86 196C140 196 160 76 202 76s62 120 116 120" stroke={accent} strokeWidth="8" fill="none" strokeLinecap="round" />
+  </>),
+  dice: ({ dark, mid, light, pale, accent }) => (<>
+    <g transform="rotate(-12 160 120)"><rect x="110" y="70" width="100" height="100" rx="16" fill={pale} />{[[135, 95], [185, 95], [160, 120], [135, 145], [185, 145]].map(([x, y]) => <circle key={x + y} cx={x} cy={y} r="9" fill={mid} />)}</g>
+    <g transform="rotate(10 245 145)"><rect x="200" y="100" width="90" height="90" rx="14" fill={light} />{[[225, 125], [245, 145], [265, 165]].map(([x, y]) => <circle key={x} cx={x} cy={y} r="8" fill={dark} opacity=".7" />)}</g>
+    <circle cx="316" cy="56" r="14" fill={accent} />
+  </>),
+  dna: ({ dark, mid, light, pale, accent }) => (<>
+    {[100, 125, 150, 175, 225, 250, 275, 300].map((x, i) => { const h = 52 * Math.sin((Math.PI * (x - 80)) / 120); const a = Math.abs(h); return <path key={x} d={`M${x} ${120 - a * 0.9}V${120 + a * 0.9}`} stroke={i % 2 ? light : accent} strokeWidth="6" strokeLinecap="round" />; })}
+    <path d="M80 120C120 50 160 50 200 120S280 190 320 120" stroke={pale} strokeWidth="11" fill="none" strokeLinecap="round" />
+    <path d="M80 120C120 190 160 190 200 120S280 50 320 120" stroke={light} strokeWidth="11" fill="none" strokeLinecap="round" />
+  </>),
+  truss: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M90 168H310M145 100H255M90 168l55-68 55 68 55-68 55 68" stroke={pale} strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    {[[90, 168], [200, 168], [310, 168], [145, 100], [255, 100]].map(([x, y]) => <circle key={x + '' + y} cx={x} cy={y} r="11" fill={light} />)}
+    <path d="M90 182L70 208h40ZM310 182l-20 26h40Z" fill={light} />
+    <path d="M145 44v38" stroke={accent} strokeWidth="8" strokeLinecap="round" /><path d="M131 76l14 18 14-18Z" fill={accent} />
+  </>),
+  neurons: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M110 122L172 72 182 160 252 102 292 172M172 72L252 102 300 62M182 160L110 122" stroke={pale} strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity=".85" />
+    {[[110, 122], [172, 72], [182, 160], [252, 102], [292, 172], [300, 62]].map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r="18" fill={i === 3 ? accent : pale} /><circle cx={x} cy={y} r="7" fill={mid} /></g>)}
+  </>),
+  planet: ({ dark, mid, light, pale, accent }) => (<>
+    <circle cx="200" cy="120" r="54" fill={pale} />
+    <path d="M168 96q32-14 64 0M162 124q38-12 76 0" stroke={mid} strokeWidth="7" fill="none" strokeLinecap="round" opacity=".45" />
+    <ellipse cx="200" cy="124" rx="108" ry="24" transform="rotate(-18 200 124)" stroke={light} strokeWidth="10" fill="none" />
+    <circle cx="80" cy="58" r="5" fill={accent} /><circle cx="330" cy="54" r="7" fill={pale} /><circle cx="318" cy="190" r="5" fill={accent} /><circle cx="70" cy="180" r="6" fill={pale} />
+  </>),
+};
+
+export function Cover({ theme = 'blue', motif = 'speech', seed = 0, className = '', rounded = true }) {
   const [dark, mid, light, pale, accent] = THEMES[theme] || THEMES.blue;
-  const flip = seed % 2 === 1;
+  const flip = motif === 'speech' && seed % 2 === 1;
+  const Art = MOTIFS[motif] || MOTIFS.speech;
   return (
     <svg className={`cover ${rounded ? 'rounded' : ''} ${className}`} viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs>
@@ -84,11 +188,7 @@ export function Cover({ theme = 'blue', seed = 0, className = '', rounded = true
       <rect width="400" height="240" fill={`url(#g${theme})`} />
       <g transform={flip ? 'translate(400 0) scale(-1 1)' : undefined}>
         <circle cx="330" cy="30" r="90" fill={light} opacity=".18" />
-        <path d="M70 52h150a26 26 0 0 1 26 26v52a26 26 0 0 1-26 26h-92l-38 30v-30h-20a26 26 0 0 1-26-26V78a26 26 0 0 1 26-26Z" fill={pale} />
-        <circle cx="106" cy="104" r="7" fill={mid} /><circle cx="140" cy="104" r="7" fill={mid} /><circle cx="174" cy="104" r="7" fill={mid} />
-        <path d="M230 120h96a22 22 0 0 1 22 22v36a22 22 0 0 1-22 22h-10v24l-30-24h-56a22 22 0 0 1-22-22v-36a22 22 0 0 1 22-22Z" fill={light} />
-        <path d="M256 150h66M256 168h44" stroke={dark} strokeWidth="8" strokeLinecap="round" opacity=".55" />
-        <circle cx="318" cy="68" r="15" fill={accent} />
+        <Art dark={dark} mid={mid} light={light} pale={pale} accent={accent} />
       </g>
     </svg>
   );

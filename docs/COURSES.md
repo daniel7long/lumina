@@ -1,6 +1,6 @@
 # Course library
 
-Lumina ships with nine courses. Eight were built from the outlines in `Lumina_Courses.zip`; the ninth (English) was built earlier.
+Lumina ships with twelve courses. Eight were built from the outlines in `Lumina_Courses.zip`, three AP-style courses (AP Calculus, AP Economics, AP Statistics) were authored without an outline, and English was built earlier.
 
 ## Read this first
 
@@ -38,6 +38,9 @@ Python (2 units) and Java (1 unit) cover only the units present in their outline
 | Cyber Technology: STEM Pathways | Computer Science & Programming |
 | Engineering Statics | Engineering and Technology |
 | Introduction to Psychology | Social Sciences |
+| AP Calculus | Mathematics and Logic |
+| AP Economics | Social Sciences |
+| AP Statistics | Data Science and Causal Reasoning |
 
 ## Reconstructed (added) objectives
 
@@ -97,3 +100,11 @@ _None added._
 239 objectives from the outline; 0 module(s) had objectives added.
 
 _None added._
+
+### AP Calculus, AP Economics, AP Statistics
+
+No outline was supplied, so every module objective was authored from the standard first-year topic sequence for each subject and is stored in the `added` list. These courses follow the content framework of the corresponding AP courses but are original text, not College Board material; AP is a registered trademark of the College Board, so check naming before public launch. AP Economics combines microeconomics and macroeconomics in one course. Each module has one session, so these are shorter than the Psychology course; add sessions per module as needed. All calculations in the quizzes were checked numerically.
+
+## Cover illustrations
+
+Course covers are drawn from a small set of subject illustrations in `web/src/components/ui.jsx` (`MOTIFS`). `motifFor(course)` picks one from the course slug and falls back to its category. To give a new course its own picture, add a slug pattern to `SLUG_MOTIF` and, if needed, a new entry in `MOTIFS`.

@@ -8,6 +8,9 @@ import { biologyCourse } from './biology/index.js';
 import { cyberCourse } from './cyber/index.js';
 import { staticsCourse } from './statics/index.js';
 import { psychologyCourse } from './psychology/index.js';
+import { apCalculusCourse } from './apcalc/index.js';
+import { apEconomicsCourse } from './apecon/index.js';
+import { apStatisticsCourse } from './apstats/index.js';
 
 export const library = [
   { key: 'english', course: englishCourse },
@@ -19,4 +22,7 @@ export const library = [
   { key: 'cyber', course: cyberCourse },
   { key: 'statics', course: staticsCourse },
   { key: 'psychology', course: psychologyCourse },
+  { key: 'apcalc', course: apCalculusCourse },
+  { key: 'apecon', course: apEconomicsCourse },
+  { key: 'apstats', course: apStatisticsCourse },
 ];
