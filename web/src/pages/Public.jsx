@@ -3,6 +3,7 @@ import { Link, navigate, useLocation } from '../lib/router.jsx';
 import { api } from '../lib/api.js';
 import { useAuth } from '../lib/auth.jsx';
 import { Band, GoogleButton, PublicPage, TopBar } from '../components/Shell.jsx';
+import HeroArt from '../components/HeroArt.jsx';
 import { Cover, motifFor, categoryMotif, Empty, ErrorBox, Icon, ProgressBar, Spinner, useAsync, useToast } from '../components/ui.jsx';
 import { minutesLabel } from '../lib/format.js';
 import { SITE } from '../lib/site.js';
@@ -41,7 +42,7 @@ export function Landing() {
               {SITE.stats.map((s) => <div key={s.label}><b>{s.value}</b>{s.label}</div>)}
             </div>
           </div>
-          <div className="art"><Cover theme="blue" rounded={false} /></div>
+          <div className="art"><HeroArt /></div>
         </div>
       </section>
 
