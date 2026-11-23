@@ -11,6 +11,8 @@ import { psychologyCourse } from './psychology/index.js';
 import { apCalculusCourse } from './apcalc/index.js';
 import { apEconomicsCourse } from './apecon/index.js';
 import { apStatisticsCourse } from './apstats/index.js';
+import { apPhysicsCourse } from './apphys/index.js';
+import { apChemistryCourse } from './apchem/index.js';
 
 export const library = [
   { key: 'english', course: englishCourse },
@@ -25,4 +27,6 @@ export const library = [
   { key: 'apcalc', course: apCalculusCourse },
   { key: 'apecon', course: apEconomicsCourse },
   { key: 'apstats', course: apStatisticsCourse },
+  { key: 'apphys', course: apPhysicsCourse },
+  { key: 'apchem', course: apChemistryCourse },
 ];

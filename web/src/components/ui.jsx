@@ -74,12 +74,12 @@ const THEMES = {
 const CATEGORY_MOTIF = {
   'Language and Speech': 'speech', 'Arts & Humanities': 'speech', Business: 'chart',
   'Computer Science & Programming': 'code', 'Data Science and Causal Reasoning': 'bell', 'Life Sciences': 'dna',
-  'Mathematics and Logic': 'calc', 'Engineering and Technology': 'truss', 'Social Sciences': 'neurons',
+  'Mathematics and Logic': 'calc', 'Engineering and Technology': 'truss', 'Social Sciences': 'neurons', 'Physical Sciences': 'atom',
 };
 const SLUG_MOTIF = [
   [/calculus/, 'calc'], [/economic/, 'sd'], [/statistics|probability/, 'bell'], [/java/, 'cup'], [/python/, 'code'],
   [/cyber|security/, 'shield'], [/management|business/, 'chart'], [/biolog/, 'dna'], [/static|engineering/, 'truss'],
-  [/psycholog/, 'neurons'], [/astronom|space|physics/, 'planet'], [/english|language/, 'speech'],
+  [/psycholog/, 'neurons'], [/astronom|space/, 'planet'], [/physics/, 'atom'], [/chemist/, 'flask'], [/english|language/, 'speech'],
 ];
 /** Picks the illustration for a course from its slug, falling back to its category. */
 export function motifFor(course) {
@@ -164,6 +164,24 @@ const MOTIFS = {
   neurons: ({ dark, mid, light, pale, accent }) => (<>
     <path d="M110 122L172 72 182 160 252 102 292 172M172 72L252 102 300 62M182 160L110 122" stroke={pale} strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity=".85" />
     {[[110, 122], [172, 72], [182, 160], [252, 102], [292, 172], [300, 62]].map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r="18" fill={i === 3 ? accent : pale} /><circle cx={x} cy={y} r="7" fill={mid} /></g>)}
+  </>),
+  atom: ({ dark, mid, light, pale, accent }) => (<>
+    <g fill="none" stroke={light} strokeWidth="9" opacity=".95">
+      <ellipse cx="200" cy="120" rx="112" ry="38" />
+      <ellipse cx="200" cy="120" rx="112" ry="38" transform="rotate(60 200 120)" />
+      <ellipse cx="200" cy="120" rx="112" ry="38" transform="rotate(-60 200 120)" />
+    </g>
+    <circle cx="200" cy="120" r="26" fill={pale} />
+    <circle cx="200" cy="120" r="11" fill={accent} />
+    <circle cx="312" cy="120" r="9" fill={pale} />
+    <circle cx="88" cy="120" r="9" fill={accent} />
+  </>),
+  flask: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M174 40h52v56l56 88a16 16 0 0 1-14 24H132a16 16 0 0 1-14-24l56-88Z" fill={pale} />
+    <path d="M148 142h104l30 42a16 16 0 0 1-14 24H132a16 16 0 0 1-14-24Z" fill={accent} opacity=".9" />
+    <rect x="164" y="34" width="72" height="12" rx="6" fill={light} />
+    <circle cx="186" cy="168" r="7" fill={pale} opacity=".85" /><circle cx="214" cy="156" r="5" fill={pale} opacity=".85" /><circle cx="204" cy="184" r="4" fill={pale} opacity=".85" />
+    <circle cx="300" cy="70" r="6" fill={pale} /><circle cx="96" cy="86" r="8" fill={light} />
   </>),
   planet: ({ dark, mid, light, pale, accent }) => (<>
     <circle cx="200" cy="120" r="54" fill={pale} />

@@ -17,6 +17,7 @@ export const CATEGORIES = [
   'Mathematics and Logic',
   'Engineering and Technology',
   'Social Sciences',
+  'Physical Sciences',
 ];
 export const COVER_THEMES = ['blue', 'teal', 'amber', 'violet', 'rose', 'slate'];
 

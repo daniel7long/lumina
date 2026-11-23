@@ -1,6 +1,6 @@
 # Course library
 
-Lumina ships with twelve courses. Eight were built from the outlines in `Lumina_Courses.zip`, three AP-style courses (AP Calculus, AP Economics, AP Statistics) were authored without an outline, and English was built earlier.
+Lumina ships with fourteen courses. Eight were built from the outlines in `Lumina_Courses.zip`, five AP-style courses (AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry) were authored without an outline, and English was built earlier.
 
 ## Read this first
 
@@ -41,6 +41,8 @@ Python (2 units) and Java (1 unit) cover only the units present in their outline
 | AP Calculus | Mathematics and Logic |
 | AP Economics | Social Sciences |
 | AP Statistics | Data Science and Causal Reasoning |
+| AP Physics | Physical Sciences |
+| AP Chemistry | Physical Sciences |
 
 ## Reconstructed (added) objectives
 
@@ -101,9 +103,9 @@ _None added._
 
 _None added._
 
-### AP Calculus, AP Economics, AP Statistics
+### AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry
 
-No outline was supplied, so every module objective was authored from the standard first-year topic sequence for each subject and is stored in the `added` list. These courses follow the content framework of the corresponding AP courses but are original text, not College Board material; AP is a registered trademark of the College Board, so check naming before public launch. AP Economics combines microeconomics and macroeconomics in one course. Each module has one session, so these are shorter than the Psychology course; add sessions per module as needed. All calculations in the quizzes were checked numerically.
+No outline was supplied, so every module objective was authored from the standard first-year topic sequence for each subject and is stored in the `added` list. These courses follow the content framework of the corresponding AP courses but are original text, not College Board material; AP is a registered trademark of the College Board, so check naming before public launch. AP Economics combines microeconomics and macroeconomics in one course. AP Physics follows the algebra-based AP Physics 1 sequence (mechanics, waves, simple circuits) and rounds g to 10 m/s² so calculations can be done by hand. AP Chemistry follows the nine-unit AP Chemistry sequence. Each module has one session, so these are shorter than the Psychology course; add sessions per module as needed. All calculations in the quizzes were checked numerically.
 
 ## Cover illustrations
 
