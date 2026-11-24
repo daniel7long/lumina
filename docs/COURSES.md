@@ -1,6 +1,6 @@
 # Course library
 
-Lumina ships with fourteen courses. Eight were built from the outlines in `Lumina_Courses.zip`, five AP-style courses (AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry) were authored without an outline, and English was built earlier.
+Lumina ships with sixteen courses. Eight were built from the outlines in `Lumina_Courses.zip`, seven AP-style courses (AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry, AP Biology, AP Computer Science) were authored without an outline, and English was built earlier.
 
 ## Read this first
 
@@ -43,6 +43,8 @@ Python (2 units) and Java (1 unit) cover only the units present in their outline
 | AP Statistics | Data Science and Causal Reasoning |
 | AP Physics | Physical Sciences |
 | AP Chemistry | Physical Sciences |
+| AP Biology | Life Sciences |
+| AP Computer Science | Computer Science & Programming |
 
 ## Reconstructed (added) objectives
 
@@ -103,9 +105,9 @@ _None added._
 
 _None added._
 
-### AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry
+### AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry, AP Biology, AP Computer Science
 
-No outline was supplied, so every module objective was authored from the standard first-year topic sequence for each subject and is stored in the `added` list. These courses follow the content framework of the corresponding AP courses but are original text, not College Board material; AP is a registered trademark of the College Board, so check naming before public launch. AP Economics combines microeconomics and macroeconomics in one course. AP Physics follows the algebra-based AP Physics 1 sequence (mechanics, waves, simple circuits) and rounds g to 10 m/s² so calculations can be done by hand. AP Chemistry follows the nine-unit AP Chemistry sequence. Each module has one session, so these are shorter than the Psychology course; add sessions per module as needed. All calculations in the quizzes were checked numerically.
+No outline was supplied, so every module objective was authored from the standard first-year topic sequence for each subject and is stored in the `added` list. These courses follow the content framework of the corresponding AP courses but are original text, not College Board material; AP is a registered trademark of the College Board, so check naming before public launch. AP Economics combines microeconomics and macroeconomics in one course. AP Physics follows the algebra-based AP Physics 1 sequence (mechanics, waves, simple circuits) and rounds g to 10 m/s² so calculations can be done by hand. AP Chemistry follows the nine-unit AP Chemistry sequence. AP Biology follows the eight AP Biology units and includes the quantitative skills (water potential, rates, chi-square, Hardy–Weinberg, population growth). AP Computer Science follows AP Computer Science A and is taught in Java; the Java in every traced question was compiled and run to confirm the answers. It overlaps with the separate Introduction to Programming in Java course, and AP Biology overlaps with Modern Biology; the AP courses start from the beginning and cover the AP topic sequence. Each module has one session, so these are shorter than the Psychology course; add sessions per module as needed. All calculations in the quizzes were checked numerically.
 
 ## Cover illustrations
 
