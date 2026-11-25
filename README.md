@@ -4,7 +4,7 @@
 
 The next generation of the Open Learning Initiative (OLI) platform at Carnegie Mellon University. Lumina is a self-paced online course platform: a learner app, an admin console and an API, built on the science of learning. It is designed for a catalogue of 100+ courses and a user base of 350,000+ learners.
 
-Sixteen courses are included today, from English and Python to seven AP-style courses (Calculus, Economics, Statistics, Physics, Chemistry, Biology and Computer Science).
+Eighteen courses are included today, from English and Python to nine AP-style courses (Calculus, Economics, Statistics, Physics, Chemistry, Biology, Computer Science, World History and English Literature).
 
 ## What learners get
 
@@ -134,7 +134,7 @@ Course → Unit → Lesson → Session → Item (video, reading or quiz), plus o
 
 ## Course library
 
-Sixteen courses are included (English, Python, Java, Evidence-Based Management, Probability and Statistics, Modern Biology, Cyber Technology, Engineering Statics, Introduction to Psychology, AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry, AP Biology, AP Computer Science). Each course cover shows a subject illustration chosen by `motifFor()` in `web/src/components/ui.jsx`. `npm run seed` loads any course that is not yet in the database, so it is safe to run again after an update.
+Eighteen courses are included (English, Python, Java, Evidence-Based Management, Probability and Statistics, Modern Biology, Cyber Technology, Engineering Statics, Introduction to Psychology, AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry, AP Biology, AP Computer Science, AP World History, AP English Literature). Each course cover shows a subject illustration chosen by `motifFor()` in `web/src/components/ui.jsx`. `npm run seed` loads any course that is not yet in the database, so it is safe to run again after an update.
 
 - `npm run check:content` validates every course (structure, limits, quiz answers).
 - To add a course: create `server/content/<name>/`, add its objectives in `server/content/data/<name>.js`, and register it in `server/content/index.js`.

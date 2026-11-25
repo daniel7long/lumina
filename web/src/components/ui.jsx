@@ -79,7 +79,7 @@ const CATEGORY_MOTIF = {
 const SLUG_MOTIF = [
   [/calculus/, 'calc'], [/economic/, 'sd'], [/statistics|probability/, 'bell'], [/java/, 'cup'], [/python/, 'code'],
   [/cyber|security/, 'shield'], [/management|business/, 'chart'], [/biolog/, 'dna'], [/static|engineering/, 'truss'],
-  [/psycholog/, 'neurons'], [/astronom|space/, 'planet'], [/physics/, 'atom'], [/chemist/, 'flask'], [/english|language/, 'speech'],
+  [/histor/, 'globe'], [/literature|literary/, 'book'], [/psycholog/, 'neurons'], [/astronom|space/, 'planet'], [/physics/, 'atom'], [/chemist/, 'flask'], [/english|language/, 'speech'],
 ];
 /** Picks the illustration for a course from its slug, falling back to its category. */
 export function motifFor(course) {
@@ -182,6 +182,22 @@ const MOTIFS = {
     <rect x="164" y="34" width="72" height="12" rx="6" fill={light} />
     <circle cx="186" cy="168" r="7" fill={pale} opacity=".85" /><circle cx="214" cy="156" r="5" fill={pale} opacity=".85" /><circle cx="204" cy="184" r="4" fill={pale} opacity=".85" />
     <circle cx="300" cy="70" r="6" fill={pale} /><circle cx="96" cy="86" r="8" fill={light} />
+  </>),
+  globe: ({ dark, mid, light, pale, accent }) => (<>
+    <circle cx="200" cy="120" r="82" fill={pale} />
+    <ellipse cx="200" cy="120" rx="34" ry="82" fill="none" stroke={light} strokeWidth="7" />
+    <path d="M118 120h164M132 78h136M132 162h136" stroke={light} strokeWidth="7" fill="none" strokeLinecap="round" />
+    <path d="M172 62q14 10 8 26t-14 22" stroke={mid} strokeWidth="9" fill="none" strokeLinecap="round" opacity=".5" />
+    <path d="M232 120q18 6 22 24t-6 32" stroke={mid} strokeWidth="9" fill="none" strokeLinecap="round" opacity=".5" />
+    <path d="M70 196q130-70 262-8" stroke={accent} strokeWidth="6" fill="none" strokeLinecap="round" strokeDasharray="2 14" />
+    <circle cx="332" cy="188" r="9" fill={accent} />
+  </>),
+  book: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M200 66c-26-16-70-18-110-8v128c40-10 84-8 110 8Z" fill={pale} />
+    <path d="M200 66c26-16 70-18 110-8v128c-40-10-84-8-110 8Z" fill={light} />
+    <path d="M110 92c22-4 54-4 74 6M110 116c22-4 54-4 74 6M110 140c22-4 54-4 74 6" stroke={mid} strokeWidth="6" fill="none" strokeLinecap="round" opacity=".55" />
+    <path d="M222 98c20-10 52-10 74-6M222 122c20-10 52-10 74-6" stroke={dark} strokeWidth="6" fill="none" strokeLinecap="round" opacity=".4" />
+    <path d="M282 58v54l12-10 12 10V56Z" fill={accent} />
   </>),
   planet: ({ dark, mid, light, pale, accent }) => (<>
     <circle cx="200" cy="120" r="54" fill={pale} />
