@@ -15,6 +15,8 @@ import { apPhysicsCourse } from './apphys/index.js';
 import { apChemistryCourse } from './apchem/index.js';
 import { apBiologyCourse } from './apbio/index.js';
 import { apComputerScienceCourse } from './apcs/index.js';
+import { apWorldHistoryCourse } from './apwh/index.js';
+import { apEnglishLiteratureCourse } from './aplit/index.js';
 
 export const library = [
   { key: 'english', course: englishCourse },
@@ -33,4 +35,6 @@ export const library = [
   { key: 'apchem', course: apChemistryCourse },
   { key: 'apbio', course: apBiologyCourse },
   { key: 'apcs', course: apComputerScienceCourse },
+  { key: 'apwh', course: apWorldHistoryCourse },
+  { key: 'aplit', course: apEnglishLiteratureCourse },
 ];
