@@ -79,7 +79,7 @@ const CATEGORY_MOTIF = {
 const SLUG_MOTIF = [
   [/calculus/, 'calc'], [/economic/, 'sd'], [/statistics|probability/, 'bell'], [/java/, 'cup'], [/python/, 'code'],
   [/cyber|security/, 'shield'], [/management|business/, 'chart'], [/biolog/, 'dna'], [/static|engineering/, 'truss'],
-  [/histor/, 'globe'], [/literature|literary/, 'book'], [/psycholog/, 'neurons'], [/astronom|space/, 'planet'], [/physics/, 'atom'], [/chemist/, 'flask'], [/english|language/, 'speech'],
+  [/geograph/, 'map'], [/histor/, 'globe'], [/literature|literary/, 'book'], [/psycholog/, 'neurons'], [/astronom|space/, 'planet'], [/physics/, 'atom'], [/chemist/, 'flask'], [/english|language/, 'speech'],
 ];
 /** Picks the illustration for a course from its slug, falling back to its category. */
 export function motifFor(course) {
@@ -198,6 +198,14 @@ const MOTIFS = {
     <path d="M110 92c22-4 54-4 74 6M110 116c22-4 54-4 74 6M110 140c22-4 54-4 74 6" stroke={mid} strokeWidth="6" fill="none" strokeLinecap="round" opacity=".55" />
     <path d="M222 98c20-10 52-10 74-6M222 122c20-10 52-10 74-6" stroke={dark} strokeWidth="6" fill="none" strokeLinecap="round" opacity=".4" />
     <path d="M282 58v54l12-10 12 10V56Z" fill={accent} />
+  </>),
+  map: ({ dark, mid, light, pale, accent }) => (<>
+    <path d="M78 66l76-18 92 22 76-18v138l-76 18-92-22-76 18Z" fill={pale} />
+    <path d="M154 48v138M246 70v138" stroke={light} strokeWidth="6" fill="none" />
+    <path d="M96 150q30-46 58-20t60-34q22-8 32 14" stroke={mid} strokeWidth="7" fill="none" strokeLinecap="round" opacity=".55" />
+    <path d="M292 112l-30 40h60Z" fill={light} opacity=".9" />
+    <path d="M216 64a24 24 0 0 1 24 24c0 20-24 46-24 46s-24-26-24-46a24 24 0 0 1 24-24Z" fill={accent} />
+    <circle cx="216" cy="88" r="9" fill={pale} />
   </>),
   planet: ({ dark, mid, light, pale, accent }) => (<>
     <circle cx="200" cy="120" r="54" fill={pale} />
