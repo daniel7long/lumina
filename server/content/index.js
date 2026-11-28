@@ -19,6 +19,10 @@ import { apWorldHistoryCourse } from './apwh/index.js';
 import { apEnglishLiteratureCourse } from './aplit/index.js';
 import { apGeographyCourse } from './apgeo/index.js';
 import { apAstronomyCourse } from './apastro/index.js';
+import { toeflReadingCourse } from './tfread/index.js';
+import { toeflListeningCourse } from './tflisten/index.js';
+import { toeflWritingCourse } from './tfwrite/index.js';
+import { toeflSpeakingCourse } from './tfspeak/index.js';
 
 export const library = [
   { key: 'english', course: englishCourse },
@@ -41,4 +45,8 @@ export const library = [
   { key: 'aplit', course: apEnglishLiteratureCourse },
   { key: 'apgeo', course: apGeographyCourse },
   { key: 'apastro', course: apAstronomyCourse },
+  { key: 'tfread', course: toeflReadingCourse },
+  { key: 'tflisten', course: toeflListeningCourse },
+  { key: 'tfwrite', course: toeflWritingCourse },
+  { key: 'tfspeak', course: toeflSpeakingCourse },
 ];

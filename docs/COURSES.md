@@ -1,6 +1,6 @@
 # Course library
 
-Lumina ships with twenty courses. Eight were built from the outlines in `Lumina_Courses.zip`, eleven AP-style courses (AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry, AP Biology, AP Computer Science, AP World History, AP English Literature, AP Geography, AP Astronomy) were authored without an outline, and English was built earlier.
+Lumina ships with twenty-four courses. Eight were built from the outlines in `Lumina_Courses.zip`, eleven AP-style courses (AP Calculus, AP Economics, AP Statistics, AP Physics, AP Chemistry, AP Biology, AP Computer Science, AP World History, AP English Literature, AP Geography, AP Astronomy) and four TOEFL iBT preparation courses (TOEFL Reading, Listening, Writing and Speaking) were authored without an outline, and English was built earlier.
 
 ## Read this first
 
@@ -112,3 +112,11 @@ No outline was supplied, so every module objective was authored from the standar
 ## Cover illustrations
 
 Course covers are drawn from a small set of subject illustrations in `web/src/components/ui.jsx` (`MOTIFS`). `motifFor(course)` picks one from the course slug and falls back to its category. To give a new course its own picture, add a slug pattern to `SLUG_MOTIF` and, if needed, a new entry in `MOTIFS`.
+
+## TOEFL iBT courses (2026 format)
+
+TOEFL Reading, TOEFL Listening, TOEFL Writing and TOEFL Speaking (prefixes `tfrd`, `tflis`, `tfwr`, `tfsp`) are independent preparation for the TOEFL iBT as redesigned in January 2026. They are **unofficial**: not made by, affiliated with or endorsed by ETS, and TOEFL is a registered trademark of ETS. All practice items, scripts and model answers are original; no ETS sample items were copied. Each course has five units of two modules, one session per module, 20 quiz questions and about 35 assessment tasks, and is labeled as authored draft text that needs expert review.
+
+Format facts come from ETS pages (checked November 2026) and may change; learners are told to check ets.org/toefl. In that format each section is scored as a band from 1 to 6 in half-band steps, and the overall score is the average of the four bands. Reading has Complete the Words, Read in Daily Life and Read an Academic Passage (about 50 items, adaptive). Listening has Listen and Choose a Response, Listen to a Conversation, Listen to an Announcement and Listen to an Academic Talk (about 47 items, adaptive). Writing has Build a Sentence, Write an Email and Write for an Academic Discussion (12 items). Speaking has Listen and Repeat and Take an Interview (11 items). ETS does not publish a full list of question types for the academic passage and academic talk tasks, so those lessons teach commonly tested skills and say so.
+
+Known limits: Lumina has no audio, so Listening scripts are transcripts to be read aloud and Listen and Repeat sentences are text; Lumina cannot record or score speech, and written tasks are scored by a keyword rubric and checklist, not by AI. An audio or read-aloud feature and speech recording would be natural follow-ups.
